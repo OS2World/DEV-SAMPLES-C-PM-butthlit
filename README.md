@@ -3,6 +3,8 @@
 OS/2 PM sample demonstrating the "Button Hilite Problem" solution using a
 dialog-based main window instead of `WinCreateStdWindow`.
 
+![butthlit ScreenShot](/wiki/butthlit.png)
+
 ## Description
 
 `TEST.EXE` shows how `WinDefDlgProc` handles button-focus highlighting
