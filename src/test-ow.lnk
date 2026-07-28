@@ -1,0 +1,8 @@
+SYSTEM os2v2_pm
+FILE bin-ow/testmain.obj
+FILE bin-ow/testwp.obj
+NAME bin-ow/TEST.EXE
+OPTION MAP=bin-ow/TEST.MAP
+OPTION QUIET
+OPTION STACK=65536
+OPTION DESCRIPTION '@#OS2World:1.01#@##1## 2026-07-28     ARCAOS-507::::::@@Button Hilite Problem - dialog-based PM sample'

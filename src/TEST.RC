@@ -1,0 +1,53 @@
+/*********************************************************************
+ *                                                                   *
+ * MODULE NAME :  test.rc                                            *
+ *                                                                   *
+ * DESCRIPTION:                                                      *
+ *                                                                   *
+ *  Resource script for the Button Hilite test program.              *
+ *  Contains the menu resource and the main dialog template.         *
+ *                                                                   *
+ *  The menu ID is intentionally the same as ID_DLG so it can be    *
+ *  loaded in WM_INITDLG via WinLoadMenu with the dialog's own ID.  *
+ *                                                                   *
+ * HISTORY:                                                          *
+ *                                                                   *
+ *  1995-04-27  Wolf Dieter Biburger   Original version.             *
+ *  2026-07-28  Martin Iturbide        Moved to src/, updated docs.  *
+ *                                                                   *
+ *********************************************************************/
+
+#include <os2.h>
+#include "test.h"
+
+MENU ID_DLG
+BEGIN
+    SUBMENU "~File", -1
+    BEGIN
+        MENUITEM "Menu ~1", ID_MENU_1, MIS_TEXT
+        MENUITEM "Menu ~2", ID_MENU_2, MIS_TEXT
+        MENUITEM "Menu ~3", ID_MENU_3, MIS_TEXT
+        MENUITEM "Menu ~4", ID_MENU_4, MIS_TEXT
+        MENUITEM "Menu ~5", ID_MENU_5, MIS_TEXT
+    END
+END
+
+DLGTEMPLATE ID_DLG LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG "TestDlg", ID_DLG, 0, 128, 148, 142,
+            FS_NOBYTEALIGN | FS_BORDER | FS_SIZEBORDER |
+            WS_VISIBLE | WS_CLIPSIBLINGS | WS_SAVEBITS,
+            FCF_TITLEBAR |
+            FCF_MENU |
+            FCF_SYSMENU |
+            FCF_SHELLPOSITION |
+            FCF_MINMAX |
+            FCF_TASKLIST
+    BEGIN
+        CONTROL "", ID_LISTBOX, 6, 20, 60, 60, WC_LISTBOX,
+                LS_NOADJUSTPOS | WS_GROUP | WS_TABSTOP | WS_VISIBLE
+
+        DEFPUSHBUTTON "~Ok",    DID_OK,     6,  4, 40, 14, WS_TABSTOP | WS_VISIBLE
+        PUSHBUTTON    "Cancel", DID_CANCEL, 49, 4, 40, 14, WS_TABSTOP | WS_VISIBLE
+    END
+END

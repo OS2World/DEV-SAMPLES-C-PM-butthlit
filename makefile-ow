@@ -1,0 +1,37 @@
+# makefile-ow
+# Build TEST.EXE with OpenWatcom 2.0 on OS/2
+#
+# Usage:
+#   compile-ow.cmd          normal build
+#   compile-ow.cmd clean    remove output files
+#
+# Tools required:
+#   wcc386 - OpenWatcom C/C++ compiler
+#   wlink  - OpenWatcom linker
+#   wrc    - Watcom Resource Compiler
+
+SRC = src
+OUT = bin-ow
+
+CFLAGS = -I=$(SRC) -bt=os2 -zq -Ot -w3
+
+.BEFORE
+	if not exist $(OUT) mkdir $(OUT)
+
+all: $(OUT)\TEST.EXE .SYMBOLIC
+
+$(OUT)\TEST.EXE: $(OUT)\testmain.obj $(OUT)\testwp.obj $(OUT)\test.res $(SRC)\test-ow.lnk
+	wlink @$(SRC)\test-ow.lnk
+	wrc $(OUT)\test.res $(OUT)\TEST.EXE
+
+$(OUT)\test.res: $(SRC)\TEST.RC $(SRC)\TEST.H
+	wrc -r -bt=os2 -q -I=$(SRC) $(SRC)\TEST.RC -fo=$(OUT)\test.res
+
+$(OUT)\testmain.obj: $(SRC)\TESTMAIN.C $(SRC)\TEST.H
+	wcc386 $(SRC)\TESTMAIN.C $(CFLAGS) -fo=$@
+
+$(OUT)\testwp.obj: $(SRC)\TESTWP.C $(SRC)\TEST.H
+	wcc386 $(SRC)\TESTWP.C $(CFLAGS) -fo=$@
+
+clean: .SYMBOLIC
+	rm -f $(OUT)\*.exe $(OUT)\*.obj $(OUT)\*.res $(OUT)\*.map

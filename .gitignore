@@ -1,0 +1,28 @@
+# Build output directories
+bin-gcc/
+bin-ow/
+
+# Compiled object files
+*.obj
+*.OBJ
+
+# Executables
+*.exe
+*.EXE
+
+# Resource compiled files
+*.res
+*.RES
+
+# Map files
+*.map
+*.MAP
+
+# Build logs
+compile-gcc.log
+compile-ow.log
+make.out
+
+# Error files
+*.err
+*.ERR

@@ -1,0 +1,39 @@
+# makefile-gcc
+# Build TEST.EXE with GCC 9.2 (bitwiseworks/kLIBC) on OS/2
+#
+# Usage:
+#   compile-gcc.cmd          normal build
+#   compile-gcc.cmd clean    remove output files
+#
+# Tools required:
+#   gcc  - GCC 9.2 (bitwiseworks kLIBC port)
+#   wrc  - Watcom Resource Compiler
+
+SRC = src
+OUT = bin-gcc
+
+CFLAGS = -Wall -Wno-unknown-pragmas -Zomf -O2 -I$(SRC) -x c
+
+OBJS = $(OUT)/testmain.obj \
+       $(OUT)/testwp.obj
+
+all: $(OUT)/TEST.EXE
+
+$(OUT):
+	mkdir $(OUT)
+
+$(OUT)/TEST.EXE: $(OBJS) $(SRC)/test-gcc.def $(OUT)/test.res
+	gcc -Zomf -o $@ $(OBJS) $(SRC)/test-gcc.def
+	wrc $(OUT)/test.res $@
+
+$(OUT)/test.res: $(SRC)/TEST.RC $(SRC)/TEST.H | $(OUT)
+	wrc -r -bt=os2 -q -I$(SRC) $(SRC)/TEST.RC -fo=$@
+
+$(OUT)/testmain.obj: $(SRC)/TESTMAIN.C $(SRC)/TEST.H | $(OUT)
+	gcc $(CFLAGS) -c -o $@ $(SRC)/TESTMAIN.C
+
+$(OUT)/testwp.obj: $(SRC)/TESTWP.C $(SRC)/TEST.H | $(OUT)
+	gcc $(CFLAGS) -c -o $@ $(SRC)/TESTWP.C
+
+clean:
+	rm -f $(OUT)/*.exe $(OUT)/*.obj $(OUT)/*.res $(OUT)/*.map
