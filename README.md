@@ -1,4 +1,4 @@
-# DEV-SAMPLES-butthlit
+# DEV-SAMPLES-C-PM-butthlit
 
 OS/2 PM sample demonstrating the "Button Hilite Problem" solution using a
 dialog-based main window instead of `WinCreateStdWindow`.
